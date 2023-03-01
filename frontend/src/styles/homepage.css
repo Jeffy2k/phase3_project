@@ -1,0 +1,160 @@
+#homepage-container {
+  width: 100%;
+  /* background-color: aqua; */
+}
+
+#website-name {
+  margin-left: 3em;
+}
+
+#website-name {
+  margin-left: 5%;
+}
+
+#website-name span {
+  color: var(--secondary-color);
+  /* font-family: Lobster; */
+  font-weight: 700;
+  margin-left: 2px;
+}
+
+header {
+  position: fixed;
+  height: 5em;
+  width: 100%;
+  background-color: var(--background-color);
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+header #links {
+  position: absolute;
+  right: 1em;
+  width: 30%;
+  min-width: 350px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+header #links a {
+  cursor: pointer;
+  color: var(--primary-color);
+  text-decoration: none;
+  position: relative;
+}
+
+header #links a::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  content: "";
+  width: 0%;
+  height: 2px;
+  background-color: var(--secondary-color);
+  transition: 0.4s;
+}
+
+header #links a:hover::after {
+  width: 100%;
+}
+
+.row {
+  width: 100%;
+  height: 35em;
+}
+
+.welcome {
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome h1 {
+  font-size: clamp(3rem, 2.5vw, 24px);
+  margin-left: 4.5%;
+  margin-top: 2em;
+  margin-bottom: 0;
+}
+.welcome p {
+  line-height: 30px;
+  color: #444;
+  margin-left: 4.5%;
+  min-width: 500px;
+  width: 40%;
+}
+
+.welcome button {
+  cursor: pointer;
+  width: 20%;
+  margin-left: 4.5%;
+  border: none;
+  padding: 15px 10px;
+  min-width: 20em;
+  font-size: 16px;
+  letter-spacing: 0.4px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: 10px;
+  margin-top: 0.6em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.welcome i {
+  color: var(--secondary-color);
+  font-size: 18px;
+  position: absolute;
+  right: 3em;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.welcome button:hover i {
+  right: 1.5em;
+  opacity: 1;
+}
+
+.welcome button:active i {
+  right: 1em;
+  opacity: 1;
+}
+
+.services span {
+  position: relative;
+  display: flex;
+}
+
+.services span p {
+  position: absolute;
+  right: 8em;
+  width: 30%;
+  color: #555;
+  margin-top: 5.2em;
+}
+
+.services h1 {
+  margin: 2em;
+  font-size: 2.5rem;
+  margin-bottom: 0;
+  margin-left: 4.5%;
+}
+
+.service{
+    height: 20em;
+    width: 100%;
+    margin-top: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+    gap: 10em;  
+}
+
+.service-card{
+    margin-top: 6em;
+    height: 20em;
+    width: 30%;
+    background-color: aqua;
+}
