@@ -42,7 +42,6 @@ end
  post "/login" do
   user = User.find_by(email: params[:email])
   if user && user.authenticate(params[:password])
-    sessions[:user] = user.id
     content_type :json
     { success: true, message: "Login successful" }.to_json
   else
