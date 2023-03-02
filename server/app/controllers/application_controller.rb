@@ -1,4 +1,4 @@
-class UserController < Sinatra::Base
+class ApplicationController < Sinatra::Base
     set :default_content_type, 'application/json'
 # Define a route to get all projects for a user
 get '/users/:id/projects' do
