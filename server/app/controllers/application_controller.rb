@@ -38,11 +38,6 @@ post '/add/user' do
 end
 
 # login
-  # Login form
-  get '/login' do
-    erb :login
-  end
-
   # Handle login form submission
   post '/login' do
     # Find the user by email
@@ -54,7 +49,7 @@ end
       "success".to_json
     else
       # If the login credentials are incorrect, render the login form with an error message
-      erb :login, locals: { error: "Invalid email or password." }
+      "failed".to_json
     end
   end
 
