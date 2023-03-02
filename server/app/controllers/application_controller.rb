@@ -1,6 +1,12 @@
 class ApplicationController < Sinatra::Base
     set :default_content_type, 'application/json'
 # Define a route to get all projects for a user
+
+get '/users'
+users = User.all
+user.to_json
+end
+
 get '/users/:id/projects' do
   content_type :json
   user_id = params[:id]
