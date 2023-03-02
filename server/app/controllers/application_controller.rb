@@ -42,7 +42,7 @@ end
  post "/login" do
   user = User.find_by(email: params[:email])
   if user && user.authenticate(params[:password])
-    sessions[:user_id] = user.id
+    # sessions[:user_id] = user.id
     { message: "Loged in succssfully"}.to_json
   else
     { errors: "Invalud email or password"}.to_json
