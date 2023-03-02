@@ -7,6 +7,12 @@
   --secondary-color: #43C6AC;
   --background-color: #E0E7FF;
 }
+
+html{
+  scroll-behavior: smooth;
+
+}
+
 body{
   margin: 0;
   width: 100%;
