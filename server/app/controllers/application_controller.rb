@@ -39,19 +39,15 @@ end
 
 # login
   # Handle login form submission
-  post '/login' do
-    # Find the user by email
-    user = User.find_by(email: params[:email])
-    # If the user exists and the password is correct
-    if user && user.authenticate(params[:password])
-      # Store the user id in the session
-      session[:user_id] = user.id
-      "success".to_json
-    else
-      # If the login credentials are incorrect, render the login form with an error message
-      "failed".to_json
-    end
+ post "/login" do
+  user = User.find_by(email: params[:email])
+  if user && user.authenticate(params[:password])
+    sessions[:user_id] = user.id
+    { message: "Loged in succssfully"}.to_json
+  else
+    { errors: "Invalud email or password"}.to_json
   end
+ end
 
   # user's dashboard
   get "/users/:id" do
