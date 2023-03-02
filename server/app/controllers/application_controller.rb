@@ -1,4 +1,7 @@
 class ApplicationController < Sinatra::Base
+
+  enable :sessions
+
     set :default_content_type, 'application/json'
 # Define a route to get all projects for a user
 
@@ -33,6 +36,36 @@ post '/add/user' do
   )
   user.save
 end
+
+# login
+  # Login form
+  get '/login' do
+    erb :login
+  end
+
+  # Handle login form submission
+  post '/login' do
+    # Find the user by email
+    user = User.find_by(email: params[:email])
+
+    # If the user exists and the password is correct
+    if user && BCrypt::Password.new(user.password_hash) == params[:password]
+      # Store the user id in the session
+      session[:user_id] = user.id
+
+      # Redirect to the user's dashboard
+      redirect "/users/#{user.id}"
+    else
+      # If the login credentials are incorrect, render the login form with an error message
+      erb :login, locals: { error: "Invalid email or password." }
+    end
+  end
+
+  # user's dashboard
+  get "/users/#{user.id}" do
+    user = User.find(params[:id])
+    user.to_json(include::projects)
+  end
 
 # Define a route to update an existing project for a user
 put '/users/:id/projects/:project_id' do
