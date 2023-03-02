@@ -10,24 +10,20 @@ get '/users/:id/projects' do
   projects.to_json
 end
 
-# Define a route to create a new project for a user
+# create a new user in the database
 post '/users/:id/projects' do
   # check if email already exists in database
   if User.find_by(email: params[:email])
     return "Error: Email already exists"
   end
-  
   # create a new user
   user = User.new(
-    username: params[:username],
+    first_name: params[:first_name],
+    last_name: params[:last_name],
     email: params[:email],
     password: params[:password]
   )
-  
-  # save the new user to the database
   user.save
-  
-  # redirect the user to the login page or another page
 end
 
 # Define a route to update an existing project for a user
