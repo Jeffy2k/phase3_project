@@ -11,7 +11,7 @@ get '/users/:id/projects' do
 end
 
 # create a new user in the database
-post '/users/:id/projects' do
+post '/add/user' do
   # check if email already exists in database
   if User.find_by(email: params[:email])
     return "Error: Email already exists"
