@@ -4,7 +4,7 @@ class ApplicationController < Sinatra::Base
 
 get '/users' do
 users = User.all
-user.to_json
+users.to_json
 end
 
 get '/users/:id/projects' do
