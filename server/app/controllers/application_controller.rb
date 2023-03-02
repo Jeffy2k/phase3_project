@@ -43,7 +43,7 @@ end
     # Find the user by email
     user = User.find_by(email: params[:email])
     # If the user exists and the password is correct
-    if user && BCrypt::Password.new(user.password_hash) == params[:password]
+    if user && BCrypt::Password.new(user.password_digest) == params[:password]
       # Store the user id in the session
       session[:user_id] = user.id
       "success".to_json
