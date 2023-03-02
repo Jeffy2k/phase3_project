@@ -62,7 +62,7 @@ end
   end
 
   # user's dashboard
-  get "/users/#{user.id}" do
+  get "/users/:id" do
     user = User.find(params[:id])
     user.to_json(include::projects)
   end
