@@ -40,23 +40,16 @@ end
 # login
   # Handle login form submission
  post "/login" do
-  begin
   user = User.find_by(email: params[:email])
   if user && user.authenticate(params[:password])
-    # sessions[:user_id] = user.id
-    json_response(code: 200, data: {
-      id: user.id,
-      email: user.email
-    })
-    { message: "Loged in succssfully"}.to_json
+    sessions[:user_id] = user.id
+    content_type :json
+    { success: true, user_id: user.id, message: "Login successful" }.to_json
   else
-    json_response(code: 422, data: { message: "Your email/password combination is not correct" })
-    { errors: "Invalud email or password"}.to_json
-  end
-  rescue => e
-    error_response(422, e)
-  end
-end
+    content_type :json
+    status 401 # unauthorized
+    { error: "Invalid email or password." }.to_json  end
+ end
 
   # user's dashboard
   get "/users/:id" do
@@ -96,13 +89,6 @@ delete '/users/:id/projects/:project_id' do
     # Return an error message as JSON
     { error: 'Project not found' }.to_json
   end
-  end
-
-  private
-
-  # @helper: parse user JSON data
-  def user_data
-    JSON.parse(request.body.read)
   end
 
 end
