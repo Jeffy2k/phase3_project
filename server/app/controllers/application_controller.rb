@@ -2,7 +2,7 @@ class ApplicationController < Sinatra::Base
 
   enable :sessions
 
-    set :default_content_type, 'application/json'
+  set :default_content_type, 'application/json'
 # Define a route to get all projects for a user
 
 get '/users' do
@@ -42,7 +42,7 @@ end
  post "/login" do
   user = User.find_by(email: params[:email])
   if user && user.authenticate(params[:password])
-    sessions[:user_id] = user.id
+    sessions[:user] = user.id
     content_type :json
     { success: true, message: "Login successful" }.to_json
   else
