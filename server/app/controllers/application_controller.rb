@@ -44,11 +44,12 @@ end
   if user && user.authenticate(params[:password])
     sessions[:user_id] = user.id
     content_type :json
-    { success: true, user_id: user.id, message: "Login successful" }.to_json
+    { success: true, message: "Login successful" }.to_json
   else
     content_type :json
     status 401 # unauthorized
-    { error: "Invalid email or password." }.to_json  end
+    { error: "Invalid email or password." }.to_json 
+  end
  end
 
   # user's dashboard
