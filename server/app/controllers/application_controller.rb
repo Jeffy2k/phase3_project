@@ -98,4 +98,11 @@ delete '/users/:id/projects/:project_id' do
   end
   end
 
+  private
+
+  # @helper: parse user JSON data
+  def user_data
+    JSON.parse(request.body.read)
+  end
+
 end
