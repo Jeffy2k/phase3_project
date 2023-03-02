@@ -12,18 +12,22 @@ end
 
 # Define a route to create a new project for a user
 post '/users/:id/projects' do
-  content_type :json
-  user_id = params[:id]
-  project = Project.new(params[:project])
-  project.user_id = user_id
-  # Save the project to the database
-  if project.save
-    # Return the new project as JSON
-    project.to_json
-  else
-    # Return an error message as JSON
-    { error: 'Failed to create project' }.to_json
+  # check if email already exists in database
+  if User.find_by(email: params[:email])
+    return "Error: Email already exists"
   end
+  
+  # create a new user
+  user = User.new(
+    username: params[:username],
+    email: params[:email],
+    password: params[:password]
+  )
+  
+  # save the new user to the database
+  user.save
+  
+  # redirect the user to the login page or another page
 end
 
 # Define a route to update an existing project for a user
