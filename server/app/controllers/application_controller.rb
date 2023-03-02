@@ -2,7 +2,7 @@ class ApplicationController < Sinatra::Base
     set :default_content_type, 'application/json'
 # Define a route to get all projects for a user
 
-get '/users'
+get '/users' do
 users = User.all
 user.to_json
 end
