@@ -55,7 +55,7 @@ end
   # user's dashboard
   get "/users/:id" do
     user = User.find(params[:id])
-    user.to_json(include: :projects)
+    user.to_json(include: { projects: { include: :skills } })
   end
 
 # Define a route to update an existing project for a user
