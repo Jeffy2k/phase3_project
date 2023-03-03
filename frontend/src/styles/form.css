@@ -330,3 +330,50 @@ form h2 span {
 outline: 0;
 border:1px solid var(--secondary-color);
 }
+
+#login_error{
+  position: absolute;
+  color: red;
+  top: 7em;
+  right: 4em;
+  visibility: hidden;
+}
+
+#validation-box{
+  min-height: 6em;
+  width: 50%;
+  margin: auto;
+  /* background-color: #999; */
+  margin-top: 2em;
+}
+
+.login-loader {
+  /* background-color: black; */
+  height: 5em;
+  width: 5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.outer{
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  border-top:4px solid var(--secondary-color);
+  border-bottom:4px solid rgb(207, 207, 207);
+  border-left:4px solid rgb(207, 207, 207);
+  border-right:4px solid rgb(207, 207, 207);
+  background-color: #fff;
+  animation: loader 1s linear infinite;
+}
+
+@keyframes loader {
+  0%{
+    rotate: 0deg;
+  }
+  100%{
+    rotate: 360deg;
+  }  
+}

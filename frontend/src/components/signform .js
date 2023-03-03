@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { Redirect } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 import "../styles/form.css";
 
 function SignForm() {
+
+  let[isLoggedIn,setIsLoggedIn]=useState(false);
+
   // form properties
   let [isVisible, setIsVisible] = useState(false);
   let [password_input_type, setPasswordType] = useState("password");
@@ -13,23 +17,14 @@ function SignForm() {
   let [isSecondStepVisible, setIsSecondStep] = useState(true);
 
   // input values
-  let [firstname, setFirstName] = useState("");
-  let [lastname, setLastName] = useState("");
+  let [first_name, setFirstName] = useState("");
+  let [last_name, setLastName] = useState("");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let [password_confirm, setPasswordConfirm] = useState("");
-  let [expertise, setExpertise] = useState("");
-  let [description, setDescription] = useState("");
+  let [career, setExpertise] = useState("");
+  let [bio, setDescription] = useState("");
 
-  function writeValues() {
-    console.log(
-      "firstname:" + firstname,
-      "lastname:" + lastname,
-      "email:" + email,
-      "password:" + password,
-      "password_confirm:" + password_confirm
-    );
-  }
 
   let signUpClass = isSignUpVisible ? "active" : "inactive";
   let secondStepClass = isSecondStepVisible ? "inactive" : "active";
@@ -156,6 +151,40 @@ function SignForm() {
     });
   }
 
+  // handle post request
+  let handlePosting = () =>{
+    console.log("active post")
+    let newObj = {
+      first_name,
+      last_name,
+      email,
+      bio,
+      career,
+      password
+    }
+    if(newObj.first_name !== null && newObj.last_name !== null && newObj.bio !== null && newObj.career !== null && newObj.email !== null && newObj.password !== null){
+    fetch("https://phase3-project.onrender.com/add/user",{
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify(newObj)
+    })
+    .then((response) =>{ console.log(response)})
+    setIsLoggedIn(true);
+}
+else{
+    console.log("error")
+}
+  }
+
+  if (isLoggedIn) {
+    // redirect to the dashboard once the user is logged in
+    return <Redirect to="/login" />;
+  }
+
+
   return (
     <main>
       <div className="shape square"></div>
@@ -177,7 +206,7 @@ function SignForm() {
                 type="text"
                 id="firstname"
                 className="sign-up-input"
-                value={firstname}
+                value={first_name}
               ></input>
             </span>
             <span>
@@ -190,7 +219,7 @@ function SignForm() {
                 type="text"
                 id="lastname"
                 className="sign-up-input"
-                value={lastname}
+                value={last_name}
                 autoComplete="false"
               ></input>
             </span>
@@ -266,7 +295,6 @@ function SignForm() {
             onClick={(e) => {
               e.preventDefault();
               toggleform("description-form", "sign-up");
-              writeValues();
             }}
           >
             Next<i className="material-icons">arrow_forward</i>
@@ -302,21 +330,22 @@ function SignForm() {
             }}
             type="text"
             className="description-input"
-            value={expertise}
+            value={career}
             autoComplete="false"
           ></input>
-          <label>About me</label>
+          <label>Bio</label>
           <textarea
             onChange={(e) => {
               setDescription(e.target.value);
               document.querySelector("textarea").style.border = "1px solid black";
             }}
-            value={description}
+            value={bio}
             autoComplete="false"
           ></textarea>
           <button
             onClick={(e) => {
               e.preventDefault();
+              handlePosting()
               validateEntries();
             }}
           >

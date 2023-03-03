@@ -18,7 +18,7 @@
   margin-left: 2px;
 }
 
-header {
+#header-home {
   position: fixed;
   height: 5em;
   width: 100%;
@@ -29,7 +29,7 @@ header {
   /* position: relative; */
 }
 
-header #links {
+#header-home  #links {
   position: absolute;
   right: 1em;
   width: 40%;
@@ -38,7 +38,7 @@ header #links {
   justify-content: space-evenly;
 }
 
-header #links a {
+#header-home #links a {
   cursor: pointer;
   color: var(--primary-color);
   text-decoration: none;
@@ -46,7 +46,7 @@ header #links a {
   z-index: 10;
 }
 
-header #links a::after {
+#header-home #links a::after {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -57,7 +57,7 @@ header #links a::after {
   transition: 0.4s;
 }
 
-header #links a:hover::after {
+#header-home  #links a:hover::after {
   width: 100%;
 }
 

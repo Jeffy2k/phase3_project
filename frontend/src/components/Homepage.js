@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 function Homepage() {
   return (
     <div id="homepage-container">
-      <header>
+      <header id="header-home">
         <h1 id="website-name">
           Folio<span>flow</span>.
         </h1>
