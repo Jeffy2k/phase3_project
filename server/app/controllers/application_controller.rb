@@ -1,8 +1,9 @@
 class ApplicationController < Sinatra::Base
 
+  set :default_content_type, 'application/json'
+
   enable :sessions
 
-  set :default_content_type, 'application/json'
 # Define a route to get all projects for a user
 
 get '/users' do
@@ -54,7 +55,7 @@ end
   # user's dashboard
   get "/users/:id" do
     user = User.find(params[:id])
-    user.to_json(include::projects)
+    user.to_json
   end
 
 # Define a route to update an existing project for a user
