@@ -42,7 +42,9 @@ end
   # Handle login form submission
  post "/login" do
   user = User.find_by(email: params[:email])
+  current_user_id = user.id
   if user && user.authenticate(params[:password])
+    session[:current_user_id] = current_user_id
     content_type :json
     { success: true, message: "Login successful" }.to_json
   else
