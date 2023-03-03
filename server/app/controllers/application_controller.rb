@@ -8,8 +8,8 @@ class ApplicationController < Sinatra::Base
 
 get '/users' do
 users = User.all
-users.to_json
-end
+users.to_json(include: [:projects, :skills])
+  end
 
 get '/users/:id/projects' do
   content_type :json
@@ -54,10 +54,9 @@ end
  end
 
   # user's dashboard
-  get "/user" do
-    user_id = session[:user_id]
-    user = User.find(user_id)
-    user.to_json
+  get "/user/:email" do
+  user = User.find_by(email: params[:email])
+  user.to_json(include: [:projects, :skills])
   end
 
 # Define a route to update an existing project for a user
