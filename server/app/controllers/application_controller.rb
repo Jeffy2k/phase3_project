@@ -55,8 +55,9 @@ end
  end
 
   # user's dashboard
-  get "/users/:id" do
-    user = User.find(params[:id])
+  get "/user" do
+    current_user_id
+    user = User.find(current_user_id)
     user.to_json(include: [:projects, :skills])
   end
 
