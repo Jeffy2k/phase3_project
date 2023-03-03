@@ -59,6 +59,7 @@ end
     current_user_id = session[:current_user_id]
     user = User.find(current_user_id)
     user.to_json(include: [:projects, :skills])
+    "User ID: #{current_user_id}"
   end
 
 # Define a route to update an existing project for a user
