@@ -42,9 +42,8 @@ end
   # Handle login form submission
  post "/login" do
   user = User.find_by(email: params[:email])
-  current_user_id = user.id
   if user && user.authenticate(params[:password])
-    session[:current_user_id] = current_user_id
+    session[:user_id] = user.id
     content_type :json
     { success: true, message: "Login successful" }.to_json
   else
@@ -56,10 +55,9 @@ end
 
   # user's dashboard
   get "/user" do
-    current_user_id = session[:current_user_id]
-    user = User.find(current_user_id)
+    user_id = session[:user_id]
+    user = User.find(user_id)
     user.to_json(include: [:projects, :skills])
-    "User ID: #{current_user_id}"
   end
 
 # Define a route to update an existing project for a user
