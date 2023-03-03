@@ -43,7 +43,6 @@ end
  post "/login" do
   user = User.find_by(email: params[:email])
   if user && user.authenticate(params[:password])
-    session[:user_id] = user[:id]
     content_type :json
     { success: true, message: "Login successful" }.to_json
   else
@@ -51,6 +50,7 @@ end
     status 401 # unauthorized
     { error: "Invalid email or password." }.to_json 
   end
+  "user#{user.id}".to_json
  end
 
   # user's dashboard
