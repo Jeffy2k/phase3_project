@@ -2,28 +2,123 @@ import { useEffect, useState } from "react";
 import "../styles/projectpage.css";
 
 function ProjectPage({ myEmail }) {
-  console.log(myEmail);
-  const [data, setData] = useState("");
-  const [isLoading, setisLoading] = useState(false);
+  const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
-  // fetch user
   useEffect(() => {
+    setIsLoading(true);
     fetch(`https://phase3-project.onrender.com/user/${myEmail}`)
       .then((response) => response.json())
       .then((data) => {
         setData(data);
-        setisLoading(true);
+        console.log(data["skills"]);
+        setIsLoading(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(true);
       });
   }, [myEmail]);
 
-  console.log(data);
-
   // user details
-
   let name = data["first_name"] + " " + data["last_name"];
-  let bio = data["bio"]
-  let career = data["career"]
+  let bio = data["bio"];
+  let career = data["career"];
+  let skillsList = data["skills"];
+  let projectsList = data["projects"];
+  let id = data["id"];
 
+  console.log(id)
+
+  console.log(skillsList);
+
+
+  let handleUpdating =(name, description, skill_id)=>{
+    let newObj = {
+    name,
+    description
+    }
+
+    console.log(newObj);
+    fetch(`https://phase3-project.onrender.com/skills/${id}/${skill_id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newObj),
+    })
+    .then(response => response.json())
+    .then(data => {
+      // handle success response
+      console.log(data)
+    })
+    .catch(error => {
+      // handle error response
+      console.log(error);
+    });
+  }
+
+  let skills;
+  if (skillsList === undefined || skillsList === null) {
+    skills = <p>No skills available</p>;
+  } else {
+    skills = skillsList.map((item) => (
+      <div className="skill">
+        <span id="skill-emojis">
+          <i onClick={(e)=>{
+            e.target.parentElement.nextElementSibling.style.visibility = 'visible';
+          }} className="material-icons">more_vert</i>
+        </span>
+        <span className="skills-menu">
+          <h6 onClick={(e)=>{
+            e.target.parentNode.style.visibility = 'hidden';
+           let children = e.target.parentElement.nextElementSibling.childNodes;
+           e.target.parentElement.nextElementSibling.nextElementSibling.style.visibility = 'visible';
+           children.forEach((child) => {
+            // Do something with the child node, such as toggle its class
+            child.contentEditable = true
+            child.style.border = "1px solid grey";
+          });
+        
+          }}>edit</h6>
+          <h6 onClick={(e)=>{
+            e.target.parentNode.parentNode.remove()
+          }}>delete</h6>
+        </span>
+        <span id="skill-details-span">
+        <h3 id="skill_name" spellCheck="false">{item.name}</h3>
+        <h5 id="skill_description" spellCheck="false">{item.description}</h5>
+        </span>
+        <i onClick={(e)=>{
+          e.target.style.visibility = "hidden"
+          let value = []
+          let children = e.target.previousElementSibling.childNodes;
+          let name = e.target.previousElementSibling.querySelector(':first-child').textContent;
+          let description = e.target.previousElementSibling.querySelector(':last-child').textContent;
+          handleUpdating(name, description, item.id)
+          children.forEach((child) => {
+            child.contentEditable = false
+            child.style.border = "1px solid transparent";
+          })
+          }} id="saveIcon" className="material-icons">done</i>
+      </div>
+    ));
+  }
+
+  let projects;
+  if (projectsList === undefined || projectsList === null) {
+    projects = <p>No projects available</p>;
+  } else {
+    projects = projectsList.map((item) => (
+      <div className="project">
+        <h6>{item.name}</h6>
+        <h6>{item.description}</h6>
+      </div>
+    ));
+  }
+
+  console.log(skills);
 
   // menu icon state
   let [isMenuVisible, setMenuVisible] = useState(false);
@@ -66,7 +161,12 @@ function ProjectPage({ myEmail }) {
             {/* <span><i className="material-symbols-outlined">person</i><h5>Jeff Maina</h5></span>
                    <span><i className="material-symbols-outlined">mail</i><h5>Jeff@gmail.com</h5></span> */}
           </div>
-          <span>
+          <span 
+          onClick={()=>{
+            toggleMenu()
+            document.querySelector("#skills-form").style.zIndex = 9999;
+          }}
+          >
             <i className="material-symbols-outlined">new_label</i>
             <h4>Add skill</h4>
             <i id="menu-arrow" className="material-symbols-outlined">
@@ -90,6 +190,7 @@ function ProjectPage({ myEmail }) {
         </div>
       </header>
       {isLoading && (
+        <>
         <section id="project-body">
           <h1 id="user-name">
             {name}
@@ -98,15 +199,15 @@ function ProjectPage({ myEmail }) {
           <div id="introduction">
             <h3>INTRODUCTION</h3>
             <h2>{career}</h2>
-            <p>
-             {bio}
-            </p>
+            <p>{bio}</p>
           </div>
           <div id="skills-container">
-          <span id="pre-skills"></span>
+            <span id="pre-skills"></span>
             <div id="skills-box">
               <h2>SKILLS</h2>
               <div id="my-skills">
+                {skills}
+                {/* <div className="skill"></div>
                 <div className="skill"></div>
                 <div className="skill"></div>
                 <div className="skill"></div>
@@ -114,21 +215,20 @@ function ProjectPage({ myEmail }) {
                 <div className="skill"></div>
                 <div className="skill"></div>
                 <div className="skill"></div>
-                <div className="skill"></div>
-                <div className="skill"></div>
-                <div className="skill"></div>
+                <div className="skill"></div> */}
               </div>
             </div>
           </div>
           <div id="projects">
             <h2>PROJECTS</h2>
             <div id="my-projects">
+              {projects}
+              {/* <div className="project"></div>
               <div className="project"></div>
               <div className="project"></div>
               <div className="project"></div>
               <div className="project"></div>
-              <div className="project"></div>
-              <div className="project"></div>
+              <div className="project"></div> */}
             </div>
           </div>
           <div id="contacts">
@@ -145,6 +245,17 @@ function ProjectPage({ myEmail }) {
             </div>
           </div>
         </section>
+        <section id="skills-form">
+          <form id="add_skills_form">
+            <i
+            onClick={(e)=>{
+              e.target.parentElement.parentElement.style.zIndex = -3;
+            }}
+             id="closeFormIcon" className="material-icons">close</i>
+
+          </form>
+        </section>
+        </>
       )}
       {isLoading || (
         <div className="project-loader">

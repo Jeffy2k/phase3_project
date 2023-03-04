@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { Redirect } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import "../styles/form.css";
 
 function SignForm() {
-
-  let[isLoggedIn,setIsLoggedIn]=useState(false);
+  let [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // form properties
   let [isVisible, setIsVisible] = useState(false);
   let [password_input_type, setPasswordType] = useState("password");
   let [isConfirmVisible, setIsConfirmVisible] = useState(false);
-  let [password_confirm_input_type, setPasswordConfirmType] = useState("password");
+  let [password_confirm_input_type, setPasswordConfirmType] =
+    useState("password");
   let [isSignUpVisible, setIsSignUp] = useState(true);
   let [isLoginVisible, setIsLogin] = useState(true);
   let [isSecondStepVisible, setIsSecondStep] = useState(true);
@@ -25,7 +25,6 @@ function SignForm() {
   let [career, setExpertise] = useState("");
   let [bio, setDescription] = useState("");
 
-
   let signUpClass = isSignUpVisible ? "active" : "inactive";
   let secondStepClass = isSecondStepVisible ? "inactive" : "active";
   let loginClass = isLoginVisible ? "inactive" : "active";
@@ -33,10 +32,9 @@ function SignForm() {
   let visibility = isVisible ? "visibility_off" : "visibility";
   let confirm_visibility = isConfirmVisible ? "visibility_off" : "visibility";
 
-
   // toggle password field visibility
   function toggleVisibility(value) {
-    if(value === "password") {
+    if (value === "password") {
       if (!isVisible) {
         setPasswordType("text");
         setIsVisible(true);
@@ -45,7 +43,7 @@ function SignForm() {
         setIsVisible(false);
       }
     }
-    if(value === "confirm") {
+    if (value === "confirm") {
       if (!isConfirmVisible) {
         setPasswordConfirmType("text");
         setIsConfirmVisible(true);
@@ -54,7 +52,6 @@ function SignForm() {
         setIsConfirmVisible(false);
       }
     }
- 
   }
 
   // toggle bettween sign-up form and login form
@@ -78,25 +75,26 @@ function SignForm() {
       );
 
       // validate email formats
-      let email = document.getElementById('sign-up-email').value;
+      let email = document.getElementById("sign-up-email").value;
       const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       let email_verification = regex.test(email);
 
       if (allInputsFilled) {
         console.log("All form inputs have been filled!");
-        if(email_verification){
-        if (password === password_confirm) {
-          setIsSignUp(false);
-          setIsSecondStep(false);
-          document.getElementById("email-error").style.visibility = "hidden";
-          document.getElementById("password-error").style.visibility = "hidden";
+        if (email_verification) {
+          if (password === password_confirm) {
+            setIsSignUp(false);
+            setIsSecondStep(false);
+            document.getElementById("email-error").style.visibility = "hidden";
+            document.getElementById("password-error").style.visibility =
+              "hidden";
+          } else {
+            // alert("Please enter")
+            document.getElementById("password-error").style.visibility =
+              "visible";
+          }
         } else {
-          // alert("Please enter")
-          document.getElementById("password-error").style.visibility =
-            "visible";
-        }}
-        else{
-         document.getElementById("email-error").style.visibility = "visible";
+          document.getElementById("email-error").style.visibility = "visible";
         }
       } else {
         empty_fields_ids_arr.map((field) => {
@@ -113,24 +111,19 @@ function SignForm() {
 
   // validate the form entries
   function validateEntries() {
-
     let input = document.querySelector(".description-input");
     let description = document.querySelector("textarea");
 
-    if(description.value && input.value){
-     alert("Proceed")
-    }
-    else if(!description.value && !input.value){
+    if (description.value && input.value) {
+      alert("Proceed");
+    } else if (!description.value && !input.value) {
       input.style.borderBottom = "1px solid red";
       description.style.border = "1px solid red";
-    }
-    else if(!description.value){
+    } else if (!description.value) {
       description.style.border = "1px solid red";
-    }
-    else if(!input.value){
+    } else if (!input.value) {
       input.style.borderBottom = "1px solid red";
-    }   
-  
+    }
   }
 
   function restoreBorderColor() {
@@ -152,32 +145,39 @@ function SignForm() {
   }
 
   // handle post request
-  let handlePosting = () =>{
-    console.log("active post")
+  let handlePosting = () => {
+    console.log("active post");
     let newObj = {
       first_name,
       last_name,
       email,
       bio,
       career,
-      password
-    }
-    if(newObj.first_name !== null && newObj.last_name !== null && newObj.bio !== null && newObj.career !== null && newObj.email !== null && newObj.password !== null){
-    fetch("https://phase3-project.onrender.com/add/user",{
+      password,
+    };
+    if (
+      newObj.first_name !== null &&
+      newObj.last_name !== null &&
+      newObj.bio !== null &&
+      newObj.career !== null &&
+      newObj.email !== null &&
+      newObj.password !== null
+    ) {
+      fetch("https://phase3-project.onrender.com/add/user", {
         method: "POST",
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-        body: JSON.stringify(newObj)
-    })
-    .then((response) =>{ console.log(response)})
-    setIsLoggedIn(true);
-}
-else{
-    console.log("error")
-}
-  }
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newObj),
+      }).then((response) => {
+        console.log(response);
+      });
+      setIsLoggedIn(true);
+    } else {
+      console.log("error");
+    }
+  };
 
   if (isLoggedIn) {
     // redirect to the dashboard once the user is logged in
@@ -230,7 +230,8 @@ else{
             <input
               onChange={(e) => {
                 setEmail(e.target.value);
-                document.getElementById("email-error").style.visibility = "hidden";
+                document.getElementById("email-error").style.visibility =
+                  "hidden";
                 restoreBorderColor();
               }}
               id="sign-up-email"
@@ -256,7 +257,9 @@ else{
               autoComplete="false"
             ></input>
             <i
-              onClick={()=>{toggleVisibility("password")}}
+              onClick={() => {
+                toggleVisibility("password");
+              }}
               id="visibility-icon"
               className="material-icons"
             >
@@ -268,7 +271,8 @@ else{
             <input
               onChange={(e) => {
                 setPasswordConfirm(e.target.value);
-                document.getElementById("password-error").style.visibility = "hidden";
+                document.getElementById("password-error").style.visibility =
+                  "hidden";
                 restoreBorderColor();
               }}
               id="sign-up-confirm-password"
@@ -277,8 +281,10 @@ else{
               value={password_confirm}
               autoComplete="false"
             ></input>
-              <i
-              onClick={()=>{toggleVisibility("confirm")}}
+            <i
+              onClick={() => {
+                toggleVisibility("confirm");
+              }}
               id="visibility-icon"
               className="material-icons"
             >
@@ -301,13 +307,8 @@ else{
           </button>
           <h5 id="sign-in-msg">
             Already have an account?
-            <NavLink className='navlink' to="/login">
-            <span
-              onClick={(e) => {
-              }}
-            >
-              Sign in
-            </span>
+            <NavLink className="navlink" to="/login">
+              <span onClick={(e) => {}}>Sign in</span>
             </NavLink>
           </h5>
         </form>
@@ -321,12 +322,15 @@ else{
           >
             arrow_backward
           </i>
-          <h2>Almost done :<span>)</span></h2>
+          <h2>
+            Almost done :<span>)</span>
+          </h2>
           <label>Field of Expertise</label>
           <input
             onChange={(e) => {
               setExpertise(e.target.value);
-              document.querySelector(".description-input").style.borderBottom = "1px solid black";
+              document.querySelector(".description-input").style.borderBottom =
+                "1px solid black";
             }}
             type="text"
             className="description-input"
@@ -337,7 +341,8 @@ else{
           <textarea
             onChange={(e) => {
               setDescription(e.target.value);
-              document.querySelector("textarea").style.border = "1px solid black";
+              document.querySelector("textarea").style.border =
+                "1px solid black";
             }}
             value={bio}
             autoComplete="false"
@@ -345,7 +350,7 @@ else{
           <button
             onClick={(e) => {
               e.preventDefault();
-              handlePosting()
+              handlePosting();
               validateEntries();
             }}
           >
