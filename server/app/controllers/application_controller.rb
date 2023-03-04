@@ -59,6 +59,17 @@ user = User.find_by(email: params[:email])
 user.to_json(include: [:projects, :skills])
 end
 
+# route for adding new skills
+post '/add/skill/:id' do
+  # create a new user
+  skill = Skill.new(
+    name: params[:name],
+    description: params[:description],
+    user_id: params[:id]
+  )
+  skill.save
+end
+
 # route for updating user skills
 put "/skills/:id/:skill_id" do
   user = User.find(params[:id]).skills.find(params[:skill_id])# Find the user by id
