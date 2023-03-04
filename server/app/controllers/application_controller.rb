@@ -53,11 +53,18 @@ end
   end
  end
 
-  # user's dashboard
-  get "/user/:email" do
-  user = User.find_by(email: params[:email])
-  user.to_json(include: [:projects, :skills])
-  end
+# user's dashboard
+get "/user/:email" do
+user = User.find_by(email: params[:email])
+user.to_json(include: [:projects, :skills])
+end
+
+# route for updating user skills
+put "/skills/:id/:skill_id" do
+  user = User.find(params[:id]).skills.find(params[:skill_id])# Find the user by id
+  user.update(name: params[:name], description: params[:description]) # Update the user's name and email
+end
+
 
 # Define a route to update an existing project for a user
 put '/users/:id/projects/:project_id' do
