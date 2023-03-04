@@ -76,6 +76,13 @@ put "/skills/:id/:skill_id" do
   user.update(name: params[:name], description: params[:description]) # Update the user's name and email
 end
 
+# route for deleting a skill
+delete '/destroy/skills/:id/:skill_id' do
+  # Find and delete the skill with the given id here
+  user = User.find(params[:id]).skills.find_by(id: params[:skill_id])# Find the user by id
+  user.destroy
+end
+
 
 # Define a route to update an existing project for a user
 put '/users/:id/projects/:project_id' do
