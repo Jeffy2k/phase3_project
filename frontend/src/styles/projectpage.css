@@ -60,36 +60,48 @@
 }
 
 #profile-section {
-  height: 43%;
+  height: 12em;
   width: 100%;
   margin-top: 0.5em;
   display: flex;
   flex-direction: column;
+  padding-left: .3em;
+  /* align-items: center; */
+  /* border-bottom: 1px solid #999; */
 }
 
 #profile-pic {
   height: 5em;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
   width: 5em;
   background-color: rgb(201, 212, 221);
   border-radius: 50%;
-  margin-left: 2em;
   margin-top: 1em;
+  margin-left: 1em;
 }
 
 #profile-section span {
   display: flex;
   align-items: center;
+  /* background-color: #2f3545; */
+  margin-top: 1em !important;
+  cursor: default !important;
+  pointer-events: none;
 }
 
 #profile-section h5 {
   margin: 0;
   /* margin-top: ; */
-  margin-left: 1.5em;
+  color: #555;
+
 }
 
 #menu {
   position: absolute;
-  height: 25em;
+  height: auto;
   z-index: -1;
   width: 20%;
   background-color: #fff;
@@ -138,7 +150,7 @@
 }
 
 .inactive-menu {
-  top: -21em;
+  top: -23em;
 }
 
 .active-menu {
@@ -148,7 +160,7 @@
 #project-body {
   position: absolute;
   width: 100%;
-  background-color: #F5FEFD;
+  background-color: #f5fefd;
   top: 5em;
   z-index: -1;
 }
@@ -217,6 +229,7 @@
   width: 100%;
   box-sizing: border-box;
   padding: 1em;
+  margin-bottom: 2em;
   display: grid;
   grid-template-columns: auto auto auto auto auto;
 }
@@ -239,7 +252,7 @@
 
 #projects {
   position: relative;
-  margin-top: 10em;
+  margin-top: 20em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -252,14 +265,56 @@
   padding-left: 2em;
   box-sizing: border-box;
   display: grid;
+  margin-top: 2em;
   grid-template-columns: auto auto;
 }
 
 .project {
   height: 25em;
-  width: 95%;
+  width: 40em;
   margin-top: 2em;
-  background-color: antiquewhite;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.34) 0px 3px 8px;
+  box-sizing: border-box;
+  padding-left: 2em;
+  position: relative;
+  /* border-radius: 10px; */
+}
+
+#project_details{
+  position: absolute;
+  top: 5em;
+}
+
+#project-options{
+  position: absolute;
+  bottom: 1em;
+  right: 0em;
+  width: 15%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.fa-github{
+  position: absolute;
+  bottom: 0.5em;
+  color: #183153;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.fa-github:hover{
+  color: black;
+}
+
+#project-options i{
+  color: #555;
+  cursor: pointer;
+  transition: .1s;
+}
+
+#project-options i:hover{
+  color: var(--secondary-color);
 }
 
 #contacts {
@@ -270,6 +325,7 @@
   flex-direction: column;
   align-items: center;
   margin-top: 5em;
+  margin-bottom: 5em;
 }
 
 #contacts div {
@@ -286,6 +342,58 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.s-add{
+  position: relative;
+  cursor: pointer;
+  height: 15em;
+  width: 15em;
+  margin-top: 2em;
+  border: 2px solid black;
+  border-style: dashed;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* transition: 0.2s; */
+  color: grey;
+}
+
+.s-add:hover{
+  border-style: solid;
+  color: var(--primary-color);
+}
+
+.s-add h2{
+  font-weight: 200;
+}
+
+.p-alert{
+  height: 25em;
+  width: 40em;
+  margin-top: 2em;
+  background-color: #fff;
+  box-sizing: border-box;
+  border: 2px solid rgb(140, 138, 138);
+  border-style: dashed;
+  background-color: transparent;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-alert:hover{
+  border-style: solid;
+  color: var(--primary-color);
+}
+
+.p-alert h2{
+  color: #555;
 }
 
 .actual-loader {
@@ -508,7 +616,7 @@
 #saveIcon {
   position: absolute;
   bottom: -15px;
-  background-color: green;
+  background-color: var(--secondary-color);
   color: #fff;
   border-radius: 50%;
   padding: 2px;
@@ -517,33 +625,143 @@
   right: 10px;
 }
 
-#skills-form{
+#skills-form {
   height: 100vh;
   width: 100vw;
   position: fixed;
   display: flex;
   justify-content: center;
   z-index: -2;
-  background-color: rgb(47, 53, 69,0.5);
-  background: rgba( 255, 255, 255, 0.25 );
-  backdrop-filter: blur( 2px );
-  -webkit-backdrop-filter: blur( 2px );
+  background-color: rgb(47, 53, 69, 0.5);
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
-#add_skills_form{
+#add_skills_form {
   width: 35%;
   min-width: 410px;
-  height: 80%;
+  height: 50%;
   margin-top: 2em;
+  box-sizing: border-box;
+  padding-left: 2em;
   background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.34) 0px 3px 8px;
 }
 
-#closeFormIcon{
-  color:grey;
+#add_skills_form h1{
+ text-align: center;
+}
+
+
+#add_skills_form h1 span{
+  color: var(--secondary-color);
+ }
+
+#add_skills_form input {
+  width: 93%;
+  border: none;
+  color : black;
+  border-bottom: 1px solid #999;
+  padding-top: 10px;
+  overflow: none;
+  font-size: 18px;
+}
+
+#add_skills_form label {
+  margin-top: 1em;
+  color: #666;
+}
+
+#add_skills_form button{
+  margin: 0;
+  margin-top: 2em;
+  width: 93%;
+}
+
+#closeFormIcon {
+  color: grey;
   font-size: 22px;
   cursor: pointer;
   position: absolute;
   right: 1em;
   top: 1em;
+}
+
+#projects-form {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  z-index: -2;
+  background-color: rgb(47, 53, 69, 0.5);
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+#projects-form form{
+  width: 35%;
+  min-width: 410px;
+  height: 60%;
+  position: relative;
+  margin-top: 2em;
+  box-sizing: border-box;
+  padding-left: 2em;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.34) 0px 3px 8px;
+}
+
+
+#projects-form form label{
+margin:10px 0px;
+color: #555;
+}
+
+#projects-form form input{
+border: none;
+border-bottom: 2px solid rgb(185, 185, 185);
+width: 90%;
+font-size: 22px;
+margin-bottom: 10px;
+}
+
+#projects-form form button{
+width: 92%;
+margin: 0;
+margin-top: 10px;
+}
+
+#projects-form form button i{
+opacity: 0;
+left: 16em;
+}
+
+#projects-form form button:hover i{
+  opacity: 1;
+  left: 18em;
+  }
+
+#newDetailsForm{
+  /* background-color: #555; */
+  display: flex;
+  flex-direction: column;
+  width: 20em;
+  height: 10em;
+  position: absolute;
+  bottom: 1.5em;
+  visibility: hidden;
+}
+
+
+#newDetailsForm label{
+margin-bottom: 10px;
+}
+
+#newDetailsForm input{
+  margin-bottom: 5px;
+  border: none;
+  border-bottom: 1px solid grey;
+  padding: 5px;
 }
