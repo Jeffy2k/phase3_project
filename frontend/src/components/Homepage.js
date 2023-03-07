@@ -1,6 +1,6 @@
 import "../styles/homepage.css";
 import Header_image from "../images/header-image.png";
-import Service from "../images/services.png";
+import Service from "../images/serv.png";
 import { NavLink } from "react-router-dom";
 
 function Homepage() {
@@ -57,20 +57,20 @@ function Homepage() {
             </h1>
           </span>
           <div className="service">
-            {/* <div id="services-offered">
+            <div id="services-offered">
               <div className="service-card right">
                 <h3>01</h3>
                 <p>Easily create and update your projects</p>
               </div>
               <div className="service-card center">
                 <h3>02</h3>
-                <p>Work showcases</p>
+                <p>Project showcases</p>
               </div>
               <div className="service-card left">
                 <h3>03</h3>
                 <p>Skills showcases</p>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
         <span id="pre-test"></span>

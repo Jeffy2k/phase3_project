@@ -284,12 +284,12 @@ function ProjectPage({ myEmail }) {
 
                 if (projectTitle !== "") {
                   let title =
-                    (e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.childNodes[0].innerHTML =
+                    (e.target.parentElement.previousElementSibling.previousElementSibling.childNodes[0].innerHTML =
                       projectTitle);
                 }
                 if (projectDescription !== "") {
                   let description =
-                    (e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.childNodes[1].innerHTML =
+                    (e.target.parentElement.previousElementSibling.previousElementSibling.childNodes[1].innerHTML =
                       projectDescription);
                 }
                 if (projectDescription === "") {

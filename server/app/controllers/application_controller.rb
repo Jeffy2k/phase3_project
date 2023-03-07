@@ -9,7 +9,7 @@ class ApplicationController < Sinatra::Base
 get '/users' do
 users = User.all
 users.to_json(include: [:projects, :skills])
-  end
+end
 
 get '/users/:id/projects' do
   content_type :json
