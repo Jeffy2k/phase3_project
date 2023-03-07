@@ -194,6 +194,12 @@
   padding: 0.5em 1em;
 }
 
+#navSpan{
+  margin: 0;
+  text-decoration: none;
+  color: red;
+}
+
 #introduction {
   margin-left: 6em;
   width: 30%;
