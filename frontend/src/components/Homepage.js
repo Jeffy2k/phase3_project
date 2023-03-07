@@ -38,10 +38,12 @@ function Homepage() {
               platform offers a seamless way to create and customize your own
               portfolio.
             </p>
+            <NavLink id="navSign" to="/sign">
             <button>
               Start a new Project Today
               <i className="material-icons">arrow_forward</i>
             </button>
+            </NavLink>
           </div>
           <div>
             <img id="header-img" src={Header_image}></img>
